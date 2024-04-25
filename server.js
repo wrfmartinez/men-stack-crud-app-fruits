@@ -28,6 +28,13 @@ app.get('/fruits/new', (req, res) => {
   res.render('fruits/new.ejs');
 });
 
+// This route retrieves all created fruits
+app.get('/fruits/', async (req, res) => {
+  const allFruits = await Fruit.find();
+  console.log(allFruits)
+  res.send(allFruits);
+});
+
 // This route creates a fruit
 app.post('/fruits', async (req, res) => {
   if (req.body.isReadyToEat === 'on') {
