@@ -29,10 +29,9 @@ app.get('/fruits/new', (req, res) => {
 });
 
 // This route retrieves all created fruits
-app.get('/fruits/', async (req, res) => {
+app.get('/fruits', async (req, res) => {
   const allFruits = await Fruit.find();
-  console.log(allFruits)
-  res.send(allFruits);
+  res.render('fruits/index.ejs', { fruits: allFruits });
 });
 
 // This route creates a fruit
