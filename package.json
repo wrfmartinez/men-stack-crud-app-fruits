@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/wrfmartinez/men-stack-crud-app-fruits#readme",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "mongoose": "^8.3.2"
   }
 }
