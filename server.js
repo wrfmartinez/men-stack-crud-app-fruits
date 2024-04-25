@@ -1,6 +1,8 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+// Import the Fruit model
+const Fruit = require('./models/fruit');
 
 const app = express();
 // Loads the environment variables from .env
