@@ -1,17 +1,26 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
+const methodOverride = require('method-override');
+
 // Import the Fruit model
 const Fruit = require('./models/fruit');
 
 /* ---- CONFIGURATIONS ---- */
 const app = express();
+
 // Parses incoming request bodies, extracts form data then converts it into an object
 app.use(express.urlencoded({ extended: false }));
+app.use(morgan('dev'));
+app.use(methodOverride('_method'));
+
 // Loads the environment variables from .env
 dotenv.config();
+
 // Connection to MongoDB database
 mongoose.connect(process.env.MONGODB_URI);
+
 // Log connection confirmation to terminal
 mongoose.connection.on('connected', () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}`);
@@ -51,6 +60,12 @@ app.post('/fruits', async (req, res) => {
   }
   // Creates a fruit object within the database based on user form submission data
   await Fruit.create(req.body);
+  res.redirect('/fruits');
+});
+
+// Method:DELETE Endpoint/URI:(/fruits/:fruitId) Deletes a specific fruit
+app.delete('/fruits/:fruitId', async (req, res) => {
+  const foundFruit = await Fruit.findByIdAndDelete(req.params.fruitId);
   res.redirect('/fruits');
 });
 
